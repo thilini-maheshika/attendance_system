@@ -1,0 +1,82 @@
+<?php include 'pages/header.php'; 
+
+    if(!isset($_REQUEST['reg_no'])){
+        echo '<script>window.location.href="category.php"</script>';
+    }
+        $std_id = $_REQUEST['reg_no'];
+    
+?>
+
+<main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
+
+    <!-- Navbar -->
+    <?php include 'navbar.php'; ?>
+    <!-- End Navbar -->
+
+    <div class="container-fluid py-4">
+        <div class="row">
+            <h4 class="modal-title" id="exampleModalLabel">Edit Student Details</h4>
+            <form class="col-md-8 " method="POST" enctype="multipart/form-data" id="productinfo">
+                <div class="modal-body">
+                    <div class="form-row">
+                        <?php
+
+                                $std = getAllStdByID($std_id);
+                                while($row = mysqli_fetch_assoc($std)){
+                                        $std_name = $row['std_name'];
+                                        $std_address = $row['std_address'];
+                                        $std_phone = $row['std_phone'];
+                                        $std_username = $row['std_uname'];
+                                        $std_password = $row['std_pass'];
+
+                                ?>
+                        <div class="form-group col-md-12">
+                            <label for="name" class="a"><b>Student Name</b></label>
+                            <input type="text" class="form-control"
+                                onchange="StdEdit(this,<?php echo $std_id; ?>,'std_name')"
+                                id="name<?php echo $std_id; ?>" name="name" value="<?php echo $std_name?>">
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <label for="address" class="a"><b>Address</b></label>
+                            <input type="text" class="form-control" 
+                            onchange="StdEdit(this,<?php echo $std_id; ?>,'std_address')" 
+                            id="address<?php echo $std_id;?>" name="address" value="<?php echo $std_address?>">
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <label for="phone" class="a"><b>Phone No</b></label>
+                            <input type="text" class="form-control" 
+                            onchange="StdEdit(this,<?php echo $std_id; ?>,'std_phone')"
+                            id="phone<?php echo $std_id;?>" name="phone" value="<?php echo $std_phone?>">
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <label for="username" class="a"><b>Username</b></label>
+                            <input type="text" class="form-control" 
+                            onchange="StdEdit(this,<?php echo $std_id; ?>,'std_uname')"
+                            id="uname<?php echo $std_id; ?>" name="uname" value="<?php echo $std_username?>">
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <label for="password" class="a"><b>Password</b></label>
+                            <input type="password" class="form-control" 
+                            onchange="StdEdit(this,<?php echo $std_id; ?>,'std_pass')"
+                            id="pass<?php echo $std_id;?>" name="pass" value="<?php echo $std_password?>">
+                        </div>
+                        <?php } ?>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" onclick="window.location.href='student.php'" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Back</button>
+                </div>
+            </form>
+        </div>
+        <?php include 'pages/footer.php'; ?>
+    </div>
+</main>
+
+</body>
+
+</html>

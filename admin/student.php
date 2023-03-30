@@ -109,8 +109,8 @@
                                                 Action
                                             </button>
                                             <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                <li><a class="dropdown-item" href="#">Edit</a></li>
-                                                <li><a class="dropdown-item" href="#">Delete</a></li>
+                                                <li><a class="dropdown-item" href="editstd.php?reg_no=<?php echo $id; ?>">Edit</a></li>
+                                                <li><button class="dropdown-item" onclick="deleteStd(<?php echo $id; ?> ,'student','reg_no')">Delete</button></li>
                                             </ul>
                                         </div>
                                     </td>

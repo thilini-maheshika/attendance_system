@@ -47,5 +47,77 @@ function addStudent(form) {
     } else { errorMessage("Please Enter Student Name"); }
 }
 
+function StdEdit(ele, std_id, field){
+
+
+    var value = document.getElementById(ele.id).value;
+
+    const data = {
+        std_id: std_id,
+        field: field,
+        value: value
+    }
+
+    $.ajax({
+        method: "POST",
+        url: "../server/api.php?function_code=stdEdit",
+        data: data,
+        success: function ($data) {
+            console.log($data);
+            location.reload(this);
+        },
+        error: function (error) {
+            console.log(`Error ${error}`);
+            sweetAlert2(warning, 'Something Wrong.Try again!!');
+        }
+    });
+}
+
+function deleteStd(id,table,field){
+
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+            var data = {
+                id: id,
+                table: table,
+                field: field,
+            }
+
+            callDeleteRequest(data);
+
+        }
+    })
+}
+
+function callDeleteRequest(data){
+    $.ajax({
+        method: "POST",
+        url: "../server/api.php?function_code=delData",
+        data: data,
+        success: function ($data) {
+            console.log($data);
+            location.reload(this);
+
+            Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+            )
+        },
+        error: function (error) {
+            console.log(`Error ${error}`);
+            sweetAlert2(warning, 'Something Wrong.Try again!!');
+        }
+    });
+}
 
 
