@@ -12,4 +12,7 @@ if(isset($_GET['function_code']) && $_GET['function_code'] == 'addStudent'){
 }else if(isset($_GET['function_code']) && $_GET['function_code'] == 'delData'){
     DeleteData($_POST);
 }
+// else if(isset($_GET['function_code']) && $_GET['function_code'] == 'editPass'){
+//     EditPassword($_POST);
+// }
 ?>

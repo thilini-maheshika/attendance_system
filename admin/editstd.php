@@ -1,7 +1,7 @@
 <?php include 'pages/header.php'; 
 
     if(!isset($_REQUEST['reg_no'])){
-        echo '<script>window.location.href="category.php"</script>';
+        echo '<script>window.location.href="student.php"</script>';
     }
         $std_id = $_REQUEST['reg_no'];
     
@@ -58,12 +58,6 @@
                             id="uname<?php echo $std_id; ?>" name="uname" value="<?php echo $std_username?>">
                         </div>
 
-                        <div class="form-group col-md-12">
-                            <label for="password" class="a"><b>Password</b></label>
-                            <input type="password" class="form-control" 
-                            onchange="StdEdit(this,<?php echo $std_id; ?>,'std_pass')"
-                            id="pass<?php echo $std_id;?>" name="pass" value="<?php echo $std_password?>">
-                        </div>
                         <?php } ?>
                     </div>
                 </div>

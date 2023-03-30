@@ -120,4 +120,41 @@ function callDeleteRequest(data){
     });
 }
 
+function updateCred(form,std_id,field){
 
+    let fd = new FormData(form);
+
+    fd.append('std_id',std_id);
+
+
+    if (fd.get('cpass').trim() != '') {
+        if (fd.get('cpass').trim().length <= 8) {
+            if (fd.get('crepass').trim() != '') {
+                if (fd.get('cpass').trim() == fd.get('crepass').trim()) {
+
+                    const data = {
+                        std_id: std_id,
+                        field: field,
+                        value: fd.get('crepass').trim()
+                    }
+
+                    $.ajax({
+                        method: "POST",
+                        url: "../server/api.php?function_code=stdEdit",
+                        data: data,
+                        success: function ($data) {
+                            console.log($data);
+                            successToast("Password Updated Successfully");
+                        },
+                        error: function (error) {
+                            console.log(`Error ${error}`);
+                            sweetAlert2(warning, 'Something Wrong.Try again!!');
+                        }
+                    });
+
+                } else { errorMessage("Password and Confirm Password does not match");}
+            } else { errorMessage("Please Confirm Password"); }
+        } else { errorMessage("Password should be less than 8 characters"); }
+    } else { errorMessage("Please Enter Password"); }
+                        
+}

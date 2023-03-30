@@ -9,7 +9,8 @@
     <div class="container-fluid py-4">
         <div class="row">
             <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="padding-bottom:0.7rem;">
-                <button class="btn btn-secondary me-md-2" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Add New</button>
+                <button class="btn btn-secondary me-md-2" type="button" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal">Add New</button>
             </div>
         </div>
 
@@ -21,7 +22,7 @@
                         <h4 class="modal-title" id="exampleModalLabel">Student Registration</h4>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form class="col-md-12 " method="POST" novalidateenctype="multipart/form-data" id="productinfo">
+                    <form class="col-md-12 " method="POST" novalidateenctype="multipart/form-data">
                         <div class="modal-body">
                             <div class="form-row">
                                 <div class="form-group col-md-12">
@@ -69,7 +70,7 @@
         <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header pb-0">
-                    <h6>Students Management</h6>
+                    <h5>Students Management</h5>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive p-0">
@@ -80,6 +81,7 @@
                                     <th>Student Name</th>
                                     <th>Address</th>
                                     <th>Phone Number</th>
+                                    <th>Username</th>
                                     <th>Registered Date</th>
                                     <th colspan="2">Action</th>
                                 </tr>
@@ -93,6 +95,7 @@
                                         $name = $row['std_name'];
                                         $address = $row['std_address'];
                                         $phone = $row['std_phone'];
+                                        $uname = $row['std_uname'];
                                         $regdate = $row['reg_date'];
                                 ?>
                                 <tr>
@@ -100,6 +103,7 @@
                                     <td><?php echo $name; ?></td>
                                     <td><?php echo $address; ?></td>
                                     <td><?php echo $phone; ?></td>
+                                    <td><?php echo $uname; ?></td>
                                     <td><?php echo $regdate; ?></td>
                                     <td>
                                         <div class="btn-group" role="group">
@@ -109,8 +113,15 @@
                                                 Action
                                             </button>
                                             <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                <li><a class="dropdown-item" href="editstd.php?reg_no=<?php echo $id; ?>">Edit</a></li>
-                                                <li><button class="dropdown-item" onclick="deleteStd(<?php echo $id; ?> ,'student','reg_no')">Delete</button></li>
+                                                <li><a class="dropdown-item"
+                                                        href="editstd.php?reg_no=<?php echo $id; ?>"><i
+                                                            class="fa-solid fa-user-pen"></i> Edit </a></li>
+                                                <li><button class="dropdown-item"
+                                                        onclick="deleteStd(<?php echo $id; ?> ,'student','reg_no')"><i
+                                                            class="fa-solid fa-trash"></i> Delete </button></li>
+                                                <li><a class="dropdown-item" href="editpassStd.php?reg_no=<?php echo $id; ?>"><i
+                                                            class="fa-solid fa-lock"></i>Change Credentials</a>
+                                                </li>
                                             </ul>
                                         </div>
                                     </td>
