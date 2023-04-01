@@ -57,7 +57,7 @@ body {
         margin: 0;
         padding: 0;
       }
-      
+
       .navbar-nav {
         padding-left: 1.3em;
         margin-top: 10px;
@@ -66,5 +66,34 @@ body {
       .nav-item{
         font-family: Arial, Helvetica, sans-serif;
       }
+
+      .collapse-inner {
+        background-color: #ffffff; /* set background color */
+        padding: 10px; /* add padding */
+        border-radius: 0.25rem; /* add rounded corners */
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); /* add box shadow */
+      }
+      
+      .collapse-item {
+        display: block;
+        padding: 0.25rem 1.5rem;
+        clear: both;
+        font-weight: 400;
+        color: #212529;
+        text-align: inherit;
+        white-space: nowrap;
+        background-color: transparent;
+        border: 0;
+      }
+
+      .form-control {
+        width: 60%; /* or any other value you prefer */
+      }
+    
+      
+      
+      
+
+      
 
       

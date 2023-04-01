@@ -7,12 +7,15 @@ include '../server/include/delete.php';
 
 if(isset($_GET['function_code']) && $_GET['function_code'] == 'addStudent'){ 
     RegStudent($_POST);
-}else if(isset($_GET['function_code']) && $_GET['function_code'] == 'stdEdit'){
-    EditStudent($_POST);
+}else if(isset($_GET['function_code']) && $_GET['function_code'] == 'Editdata'){
+    UpdateData($_POST);
 }else if(isset($_GET['function_code']) && $_GET['function_code'] == 'delData'){
     DeleteData($_POST);
+}else if(isset($_GET['function_code']) && $_GET['function_code'] == 'addcls'){
+    AddClass($_POST);
+}else if(isset($_GET['function_code']) && $_GET['function_code'] == 'addsec'){
+    AddSection($_POST);
+}else if(isset($_GET['function_code']) && $_GET['function_code'] == 'addTeacher'){
+    AddTeacher($_POST);
 }
-// else if(isset($_GET['function_code']) && $_GET['function_code'] == 'editPass'){
-//     EditPassword($_POST);
-// }
 ?>

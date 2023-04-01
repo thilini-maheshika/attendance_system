@@ -20,8 +20,75 @@
         }else{
             echo json_encode($count);
         }
-
-        
-
+    
     }
+
+     //function for Add Class
+     function AddClass($data){
+
+        include 'connection.php';
+
+        $cls_name = $data['class'];
+
+        $count = checkclsByName($cls_name);
+
+        if($count == 0){
+            //insert query to table class
+            $sql = "INSERT INTO class(cls_name, is_deleted) VALUES ('$cls_name', 0)";
+            return mysqli_query($con, $sql);
+        }else{
+            echo json_encode($count);
+        }
+    
+    }
+
+    //function for Add Section
+    function AddSection($data){
+
+        include 'connection.php';
+
+        $cls_id = $data['class'];
+        $sec_name = $data['section'];
+
+        $count = checksecByName($sec_name);
+
+        if($count == 0){
+            //insert query to table section
+            $sql = "INSERT INTO section(cls_id,sec_name,is_assigned,is_deleted) VALUES ('$cls_id','$sec_name',0, 0)";
+            return mysqli_query($con, $sql);
+        }else{
+            echo json_encode($count);
+        }
+    
+    }
+
+    //function for Add Student
+    function AddTeacher($data){
+
+        include 'connection.php';
+
+        $t_name = $data['name'];
+        $t_email = $data['email'];
+        $t_address = $data['address'];
+        $t_phone = $data['phone'];
+        $cls_id = $data['class'];
+        $sec_id = $data['sect'];
+        $t_pass = $data['pass'];
+
+        $count = checkteacherByEmail($t_email);
+
+        if($count == 0){
+            //insert query to table Teacher
+            $sql = "INSERT INTO teacher(t_name,t_email, t_address, t_phone, cls_id, sec_id, t_pass, date_updated, is_deleted) VALUES ('$t_name','$t_email','$t_address', '$t_phone', '$cls_id','$sec_id','$t_pass', NOW(), 0)";
+            updateSection($sec_id);
+            return mysqli_query($con, $sql);
+
+
+
+        }else{
+            echo json_encode($count);
+        }
+    }
+
+
 ?>

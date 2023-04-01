@@ -58,9 +58,7 @@ function errorMessage(title) {
         timeout: 2000,
         title: 'Error',
         message: title,
-        onClosing: function () {
-            location.reload(true);
-        }
+        
     });
 }
 

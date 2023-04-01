@@ -1,29 +1,26 @@
 <?php
 
-    function EditStudent($data){
+    function UpdateData($data){
 
         include 'connection.php';
 
-        $std_id = $data['std_id'];
+        $id = $data['id'];
         $field = $data['field'];
         $value = $data['value']; 
+        $table = $data['table'];
+        $table_id = $data['tbl_id'];
             
-        $sql1 = "UPDATE student SET $field='$value'  WHERE reg_no='$std_id'";
+        $sql1 = "UPDATE $table SET $field='$value'  WHERE $table_id='$id'";
         return mysqli_query($con, $sql1);
 
     }
 
-    // function EditPassword($data){
+    function updateSection($sec_id){
 
-    //     include 'connection.php';
-
-    //     $std_id = $data['id'];
-    //     $pass = $data['cpass'];
+        include 'connection.php';
         
-    //     $sql1 = "UPDATE student SET std_pass='$pass'  WHERE reg_no='$std_id'";
-    //     return mysqli_query($con, $sql1);
-    // }
-
-
+        $sql = "UPDATE section SET is_assigned = 1 WHERE sec_id = '$sec_id'";
+        $result = mysqli_query($con, $sql);
+    }
 
 ?>

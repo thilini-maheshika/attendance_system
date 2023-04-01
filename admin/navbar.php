@@ -9,7 +9,23 @@
             <div class="navbar-nav ">
                 <a href="index.php" class="nav-item nav-link active"><i class="fas fa-home-alt me-2"></i>Dashboard</a>
                 <a href="student.php" class="nav-item nav-link "><i class="fas fa-user-graduate me-2"></i>Students</a>
-                <a href="class.php" class="nav-item nav-link "><i class="fa fa-users me-2"></i>Classrooms</a>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                        data-bs-target="#collapseBootstrapcon" aria-expanded="false"
+                        aria-controls="collapseBootstrapcon">
+                        <i class="fa fa-users me-2"></i>
+                        <span>Classrooms</span>
+                    </a>
+                    <div class="collapse ml-3" id="collapseBootstrapcon">
+                        <div class="bg-white">
+                            <a class="nav-link" href="class.php">Create Grade</a>
+                        </div>
+                        <div class="bg-white">
+                            <a class="nav-link" href="section.php">Create Section</a>
+                        </div>
+                    </div>
+                </li>
+
                 <a href="teacher.php" class="nav-item nav-link"><i
                         class="fas fa-chalkboard-teacher me-2"></i>Teachers</a>
                 <a href="" class="nav-item nav-link"><i class="fa fa-list me-2"></i>Customize Page</a>

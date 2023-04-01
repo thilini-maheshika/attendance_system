@@ -1,9 +1,9 @@
 <?php include 'pages/header.php'; 
 
-    if(!isset($_REQUEST['reg_no'])){
+    if(!isset($_REQUEST['t_id'])){
         echo '<script>window.location.href="student.php"</script>';
     }
-        $std_id = $_REQUEST['reg_no'];
+        $t_id = $_REQUEST['t_id'];
     
 ?>
 
@@ -32,9 +32,9 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" onclick="window.location.href='student.php'" class="btn btn-secondary"
+                    <button type="button" onclick="window.location.href='teacher.php'" class="btn btn-secondary"
                         data-bs-dismiss="modal">Back</button>
-                    <button type="button" onclick="updateCred(this.form,'<?php echo $std_id;?>','std_pass','student','reg_no')" name="submit"
+                    <button type="button" onclick="updateCred(this.form,'<?php echo $t_id;?>','t_pass','teacher','t_id')" name="submit"
                                 class="btn btn-dark">Save changes</button>
                 </div>
             </form>

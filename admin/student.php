@@ -117,7 +117,7 @@
                                                         href="editstd.php?reg_no=<?php echo $id; ?>"><i
                                                             class="fa-solid fa-user-pen"></i> Edit </a></li>
                                                 <li><button class="dropdown-item"
-                                                        onclick="deleteStd(<?php echo $id; ?> ,'student','reg_no')"><i
+                                                        onclick="deleteData(<?php echo $id; ?> ,'student','reg_no')"><i
                                                             class="fa-solid fa-trash"></i> Delete </button></li>
                                                 <li><a class="dropdown-item" href="editpassStd.php?reg_no=<?php echo $id; ?>"><i
                                                             class="fa-solid fa-lock"></i>Change Credentials</a>

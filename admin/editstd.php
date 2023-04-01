@@ -27,34 +27,33 @@
                                         $std_address = $row['std_address'];
                                         $std_phone = $row['std_phone'];
                                         $std_username = $row['std_uname'];
-                                        $std_password = $row['std_pass'];
 
                                 ?>
                         <div class="form-group col-md-12">
                             <label for="name" class="a"><b>Student Name</b></label>
                             <input type="text" class="form-control"
-                                onchange="StdEdit(this,<?php echo $std_id; ?>,'std_name')"
+                                onchange="EditData(this,<?php echo $std_id; ?>,'std_name','student','reg_no')"
                                 id="name<?php echo $std_id; ?>" name="name" value="<?php echo $std_name?>">
                         </div>
 
                         <div class="form-group col-md-12">
                             <label for="address" class="a"><b>Address</b></label>
                             <input type="text" class="form-control" 
-                            onchange="StdEdit(this,<?php echo $std_id; ?>,'std_address')" 
+                            onchange="EditData(this,<?php echo $std_id; ?>,'std_address','student','reg_no')" 
                             id="address<?php echo $std_id;?>" name="address" value="<?php echo $std_address?>">
                         </div>
 
                         <div class="form-group col-md-12">
                             <label for="phone" class="a"><b>Phone No</b></label>
                             <input type="text" class="form-control" 
-                            onchange="StdEdit(this,<?php echo $std_id; ?>,'std_phone')"
+                            onchange="EditData(this,<?php echo $std_id; ?>,'std_phone','student','reg_no')"
                             id="phone<?php echo $std_id;?>" name="phone" value="<?php echo $std_phone?>">
                         </div>
 
                         <div class="form-group col-md-12">
                             <label for="username" class="a"><b>Username</b></label>
                             <input type="text" class="form-control" 
-                            onchange="StdEdit(this,<?php echo $std_id; ?>,'std_uname')"
+                            onchange="EditData(this,<?php echo $std_id; ?>,'std_uname','student','reg_no')"
                             id="uname<?php echo $std_id; ?>" name="uname" value="<?php echo $std_username?>">
                         </div>
 
