@@ -9,13 +9,15 @@
         $std_address = $data['address'];
         $std_phone = $data['phone'];
         $std_uname = $data['uname'];
+        $cls_id = $data['class'];
+        $sec_id = $data['sect'];
         $std_pass = $data['pass'];
 
         $count = checkstdByUname($std_uname);
 
         if($count == 0){
             //insert query to table student
-            $sql = "INSERT INTO student(std_name, std_address, std_phone, std_uname, std_pass, reg_date, is_deleted) VALUES ('$std_name', '$std_address', '$std_phone', '$std_uname', '$std_pass', NOW(), 0)";
+            $sql = "INSERT INTO student(std_name, std_address, std_phone, std_uname,cls_id,sec_id, std_pass, reg_date, is_deleted) VALUES ('$std_name', '$std_address', '$std_phone', '$std_uname','$cls_id','$sec_id', '$std_pass', NOW(), 0)";
             return mysqli_query($con, $sql);
         }else{
             echo json_encode($count);
@@ -83,12 +85,34 @@
             updateSection($sec_id);
             return mysqli_query($con, $sql);
 
-
-
         }else{
             echo json_encode($count);
         }
     }
+
+    function GetAttendance($data){
+
+        include 'connection.php';
+
+        $id = $data['id'];
+        $cls_id = $data['cls_id'];
+        $sec_id = $data['sec_id'];
+        $t_id = $data['t_id'];
+        $status_checked = $data['status_checked'];
+
+        $count = checkAttendanceOfDate();
+
+        if($count == 0){
+            //insert query to table Teacher
+            $sql = "INSERT INTO attendance(std_id,cls_id, sec_id,t_id, status_check, date_updated) VALUES ('$id','$cls_id','$sec_id','$t_id', '$status_checked' , NOW())";
+            return mysqli_query($con, $sql);
+
+        }else{
+            echo json_encode($count);
+        }
+        
+    }
+
 
 
 ?>

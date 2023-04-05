@@ -11,7 +11,11 @@
         $table_id = $data['tbl_id'];
             
         $sql1 = "UPDATE $table SET $field='$value'  WHERE $table_id='$id'";
+        if($table == 'teacher'){
+            updateSection($value);
+        }
         return mysqli_query($con, $sql1);
+
 
     }
 
@@ -19,7 +23,7 @@
 
         include 'connection.php';
         
-        $sql = "UPDATE section SET is_assigned = 1 WHERE sec_id = '$sec_id'";
+        $sql = "UPDATE section SET is_assigned = (CASE WHEN sec_id = '$sec_id' THEN 1 ELSE 0 END)";
         $result = mysqli_query($con, $sql);
     }
 

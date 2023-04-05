@@ -1,4 +1,5 @@
-<?php include 'pages/header.php'; ?>
+<?php include 'pages/header.php'; 
+session_start();?>
 
 <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
 
@@ -8,10 +9,12 @@
 
     <div class="container-fluid py-4">
         <div class="row">
+        <?php if (isset($_SESSION['admin'])) { ?>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="padding-bottom:0.7rem;">
                 <button class="btn btn-secondary me-md-2" type="button" data-bs-toggle="modal"
                     data-bs-target="#exampleModal">Add New</button>
             </div>
+            <?php } ?>
         </div>
 
         <!-- Modal -->
@@ -44,6 +47,37 @@
                                     <label for="username" class="a"><b>Username</b></label>
                                     <input type="text" class="form-control" id="uname" name="uname"
                                         placeholder="Username">
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label for="name" class="a"><b>Select Class</b></label>
+                                        <select type="text" class='form-control norad tx12' name="class" id="class">
+                                            <option selected>--Select Class--</option>
+                                            <?php 
+                                                $res=fetchClass();
+                                                $count=1;
+                                                while($row=mysqli_fetch_assoc($res)){
+                                                    echo "<option value='".$row['cls_id']."'>".$row['cls_name']."</option>";
+                                                    $count++;
+                                                }
+                                
+                                            ?>
+                                        </select>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label for="name" class="a"><b>Select Section</b></label>
+                                        <select type="text" class='form-control norad tx12' name="sect" id="sect">
+                                            <option selected>--Select Section--</option>
+                                            <?php 
+                                                $res=fetchSection();
+                                                $count=1;
+                                                while($row=mysqli_fetch_assoc($res)){
+                                                
+                                                    echo "<option value='".$row['sec_id']."'>".$row['sec_name']."</option>";
+                                                    $count++;
+                                                }
+                                
+                                            ?>
+                                        </select>
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label for="password" class="a"><b>Password</b></label>
@@ -81,11 +115,18 @@
                                     <th>Student Name</th>
                                     <th>Address</th>
                                     <th>Phone Number</th>
+                                    <?php if (isset($_SESSION['admin'])) { ?>
                                     <th>Username</th>
+                                    <?php } ?>
+                                    <th>Class</th>
+                                    <th>Section</th>
                                     <th>Registered Date</th>
+                                    <?php if (isset($_SESSION['admin'])) { ?>
                                     <th colspan="2">Action</th>
+                                    <?php } ?>
                                 </tr>
                             </thead>
+
                             <tbody>
                                 <?php 
                                     $getstd = fetchStudent();
@@ -96,6 +137,8 @@
                                         $address = $row['std_address'];
                                         $phone = $row['std_phone'];
                                         $uname = $row['std_uname'];
+                                        $cls_id = $row['cls_id'];
+                                        $sec_id = $row['sec_id'];
                                         $regdate = $row['reg_date'];
                                 ?>
                                 <tr>
@@ -103,8 +146,32 @@
                                     <td><?php echo $name; ?></td>
                                     <td><?php echo $address; ?></td>
                                     <td><?php echo $phone; ?></td>
-                                    <td><?php echo $uname; ?></td>
+
+                                    <?php if (isset($_SESSION['admin'])) { ?>
+
+                                    <td><?php echo $uname; ?></td> <?php } ?>
+                                    <?php
+                                            $cls = getClassbyID($cls_id);
+                                            while($row1 = mysqli_fetch_assoc($cls)){
+                                                $cls_name = $row1['cls_name'];
+                                        ?>
+
+                                    <td><?php echo $cls_name; ?></td>
+                                    
+                                    <?php } ?>
+
+                                    <?php
+                                            $sec = getSecById($sec_id);
+                                            while($row2 = mysqli_fetch_assoc($sec)){
+                                                $sec_name = $row2['sec_name'];
+                                        ?>
+
+                                    <td><?php echo $sec_name; ?></td>
+                                    <?php } ?>
                                     <td><?php echo $regdate; ?></td>
+
+                                    <?php if (isset($_SESSION['admin'])) { ?>
+
                                     <td>
                                         <div class="btn-group" role="group">
                                             <button id="btnGroupDrop1" type="button"
@@ -125,6 +192,8 @@
                                             </ul>
                                         </div>
                                     </td>
+
+                                    <?php } ?>
                                 </tr>
                                 <?php } ?>
                             </tbody>

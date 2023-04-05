@@ -17,5 +17,10 @@ if(isset($_GET['function_code']) && $_GET['function_code'] == 'addStudent'){
     AddSection($_POST);
 }else if(isset($_GET['function_code']) && $_GET['function_code'] == 'addTeacher'){
     AddTeacher($_POST);
+}else if(isset($_GET['function_code']) && $_GET['function_code'] == 'login'){
+    CheckLogin($_POST);
+}else if(isset($_GET['function_code']) && $_GET['function_code'] == 'checkAttendance'){
+    GetAttendance($_POST);
 }
 ?>
+

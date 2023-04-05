@@ -1,4 +1,4 @@
-<footer class="footer pt-3  ">
+<!-- <footer class="footer pt-3">
     <div class="container-fluid">
         <div class="row align-items-center justify-content-lg-between">
             <div class="col-lg-6 mb-lg-0 mb-4">
@@ -12,7 +12,18 @@
             </div>
         </div>
     </div>
+</footer> -->
+
+<footer class="footer sticky-bottom bg-white mb-3" style="opacity: 0.7; text-align: left;">
+  <div class="container-fluid d-flex justify-content-start">
+    <div>
+      &copy; <script> document.write(new Date().getFullYear()); </script> Al-Adhan Maha Vidyalaya <br>
+                    Created By : M.N.Zeenathul Naleefa , SEU/IS/17/AT/010
+    </div>
+  </div>
 </footer>
+
+
 
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>

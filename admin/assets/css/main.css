@@ -1,5 +1,5 @@
 body {
-    background-color: #fbfbfb;
+    background-color: #f1efef;
     }
     @media (min-width: 991.98px) {
     main {
@@ -89,7 +89,20 @@ body {
       .form-control {
         width: 60%; /* or any other value you prefer */
       }
+
+      .text-muted {
+        opacity: 0.6;
+    }
+      
+      .footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        
+      }
+      
     
+      
       
       
       
