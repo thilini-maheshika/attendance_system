@@ -1,5 +1,4 @@
 <?php include 'pages/header.php'; ?>
-
 <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
 
     <!-- Navbar -->
@@ -8,7 +7,7 @@
 
     <div class="container-fluid py-4">
         <div class="row">
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="padding-bottom:0.7rem;">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="padding-bottom:0.7rem; margin-top:0.5rem;">
                 <button class="btn btn-secondary me-md-2" type="button" data-bs-toggle="modal"
                     data-bs-target="#exampleModal">Add New</button>
             </div>
@@ -195,6 +194,4 @@
     </div>
 </main>
 
-</body>
 
-</html>

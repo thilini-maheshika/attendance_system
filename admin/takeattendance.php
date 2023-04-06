@@ -15,8 +15,9 @@ session_start();
     <div class="container-fluid py-4">
         <div class="row">
             <div class="col">
-
-                <h4>Take Attendance - <small class="text-muted"></small></h4>
+                <?php $r1 = fetchAll($_SESSION['teacher']);
+                $row1 = mysqli_fetch_assoc($r1) ; ?>
+                <h4>Take Attendance - <small class="text-muted"><?php echo $row1['cls_name'] ?>(<?php echo $row1['sec_name']?>)</small></h4>
             </div>
             <div class="col text-right">
                 <h4><small class="text-muted">(Today's Date : <?php echo date('d-M-Y'); ?>)</small></h4>
@@ -28,7 +29,7 @@ session_start();
             <div class="card mb-4">
                 <div class="card-header pb-0">
 
-                    <h6>All Students in </h6>
+                    <h6>All Students</h6>
                 </div>
                 <div class="card-body px-0 pt-2 pb-2">
                     <div class="table-responsive p-0">

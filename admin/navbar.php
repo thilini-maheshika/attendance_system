@@ -1,6 +1,9 @@
 <?php
     include 'pages/auth.php';
-?>
+    require_once '../server/include/connection.php';
+
+
+ ?>
 
 <script src="assets/js/script.js"></script>
 
@@ -14,7 +17,7 @@
             <div class="navbar-nav ">
                 <a href="index.php" class="nav-item nav-link active"><i class="fas fa-home-alt me-2"></i>Dashboard</a>
                 <a href="student.php" class="nav-item nav-link "><i class="fas fa-user-graduate me-2"></i>Students</a>
-                
+
                 <?php if (isset($_SESSION['admin'])) { ?>
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
@@ -34,8 +37,9 @@
                 </li>
                 <?php } ?>
 
-                <?php if (isset($_SESSION['teacher'])) { ?>
-                    
+                <?php if (isset($_SESSION['teacher'])) { 
+                    ?>
+
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
                         data-bs-target="#collapseAttendance" aria-expanded="false" aria-controls="collapseAttendance">
@@ -50,10 +54,12 @@
                             <a class="nav-link" href="viewattendance.php">View Class Attendance</a>
                         </div>
                         <div class="bg-white">
-                            <a class="nav-link" href="class.php">View Student Attendance</a>
+                            <a class="nav-link" href="stdAttendance.php">View Student Attendance</a>
                         </div>
                         <div class="bg-white">
-                            <a class="nav-link" href="report.php?file=attendance.xlsx">Report(xls)</a>
+                            <a class="nav-link" href="report.php?t_id=<?php echo $_SESSION['teacher']; ?>">Report(xls)</a>
+                            <?php  ?>
+
                         </div>
                     </div>
                 </li>
@@ -90,14 +96,26 @@
 
             <!-- Right links -->
             <ul class="navbar-nav ms-auto d-flex flex-row" style="margin-right: 20px;">
-                <!-- Search form -->
-                <form method="POST">
-                    <div class="input-group">
-                        <input type="text" name="key" class="form-control" placeholder="Type here...">
-                        <button type="submit" name="search" class="btn btn-dark"><i class="fas fa-search"
-                                aria-hidden="true"></i></button>
-                    </div>
-                </form>
+                <?php
+
+                    if (isset($_SESSION['teacher'])) { 
+                        $r1 = fetchAll($_SESSION['teacher']);
+                        $row1 = mysqli_fetch_assoc($r1) ; ?>
+
+                <span style="color: gray; font-size: 0.9em;">Welcome <?php echo $row1['t_name']; ?> </span>
+
+                <?php }else if(isset($_SESSION['admin'])){ ?>
+
+                <span style="color: gray; font-size: 0.9em;">Welcome Admin </span>
+
+                <?php }else if(isset($_SESSION['student'])){
+
+                    $r1 = getStuById($_SESSION['student']);
+                    $row1 = mysqli_fetch_assoc($r1) ; ?>
+
+                    <span style="color: gray; font-size: 0.9em;">Welcome <?php echo $row1['std_name']; ?> </span>
+
+                <?php } ?>
                 <!-- Avatar -->
                 <li class="nav-item dropdown" style="margin-left: 20px;">
                     <a class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center" href="#"
@@ -106,12 +124,26 @@
                             loading="lazy"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+
+                        <?php if(isset($_SESSION['teacher'])){ ?>
                         <li>
-                            <a class="dropdown-item" href="#">My profile</a>
+                            <a class="dropdown-item" href="tProfile.php">My Profile</a>
                         </li>
                         <li>
-                        <a class="dropdown-item" href="editpassTe.php?t_id=<?php echo $_SESSION['teacher']; ?>">Change Password</a>
+                            <a class="dropdown-item"
+                                href="editpassTe.php?t_id=<?php echo $_SESSION['teacher']; ?>">Change Password</a>
                         </li>
+                        <?php }else if(isset($_SESSION['admin'])){ ?>
+                            <li>
+                            <a class="dropdown-item"
+                                href="editpassAdmin.php?ad_id=<?php echo $_SESSION['admin']; ?>">Change Password</a>
+                        </li>
+                        <?php }else if(isset($_SESSION['student'])){  ?>
+                            <li>
+                            <a class="dropdown-item"
+                                href="editpassStd.php?reg_no=<?php echo $_SESSION['student']; ?>">Change Password</a>
+                        </li>
+                        <?php } ?>
                         <li>
                             <a class="dropdown-item" href="logout.php">Logout</a>
                         </li>
@@ -119,6 +151,7 @@
                 </li>
             </ul>
         </div>
+
         <!-- Container wrapper -->
     </nav>
     <!-- Navbar -->

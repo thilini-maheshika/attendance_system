@@ -12,8 +12,10 @@
                     <?php
                 if(isset($_SESSION['admin'])){
                     echo 'Admin Dashboard';
-                } else {
+                } else if(isset($_SESSION['teacher'])){
                     echo 'Class Teacher Dashboard';
+                }else{
+                    echo 'Student View';
                 }
                 ?></h4>
             </div>
@@ -83,7 +85,7 @@
                     <div class="card-body d-flex align-items-center">
                         <i class="bi bi-journal-check fs-1 me-3"></i>
                         <div>
-                            <h5 class="card-title">Total Attendance</h5>
+                            <h5 class="card-title">Today Attendance</h5>
                             <?php 
                                 $get_all_att = fetchAttendance();
                                 $total_att = mysqli_num_rows($get_all_att);

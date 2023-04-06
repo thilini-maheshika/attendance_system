@@ -57,7 +57,7 @@
 
         include 'connection.php';
 
-        $viewt = "SELECT * FROM attendance WHERE status_check = '1'";
+        $viewt = "SELECT * FROM attendance WHERE status_check = '1' AND DATE(date_updated) = CURDATE()";
         return mysqli_query($con, $viewt);
         
     }

@@ -2,6 +2,7 @@
 require_once '../server/include/connection.php';
 include '../server/api.php';
 include '../server/include/fetch.php';
+
  ?>
 
 <!DOCTYPE html>

@@ -8,11 +8,12 @@
         return mysqli_num_rows($uname_check);
     }
 
-    function getAllStdByID($std_id){
+    function getAllStdByID($std_id) {
+
         include 'connection.php';
-    
-        $q1= "SELECT * FROM student WHERE reg_no='$std_id' AND is_deleted='0'";
-        return mysqli_query($con,$q1);
+
+        $q1 = "SELECT * FROM student WHERE reg_no='$std_id' AND is_deleted='0'";
+        return mysqli_query($con, $q1);
     }
 
     function checkclsByName($cls_name){
@@ -115,11 +116,15 @@
             $q1= "SELECT * FROM student WHERE std_uname='$uname' AND std_pass='$password'";
             $res = mysqli_query($con,$q1);
             $num_rows = mysqli_num_rows($res);
+            $student = mysqli_fetch_assoc($res);
     
             if ($num_rows > 0 ) {
-                // create session called 'student'
+                // create session called 'teacher'
+            if($student){
                 session_start();
-                $_SESSION['student'] = true;
+                // $_SESSION['teacher'] = true;
+                $_SESSION['student'] = $student['reg_no'];
+            }
             }
 
             echo $num_rows;
@@ -140,18 +145,70 @@
 
         include 'connection.php';
 
+        $view = "SELECT s.reg_no, s.std_name, c.cls_name, sc.sec_name, a.status_check
+                 FROM attendance a
+                 INNER JOIN student s ON s.reg_no = a.std_id AND s.cls_id = a.cls_id AND s.sec_id = a.sec_id
+                 INNER JOIN class c ON c.cls_id = a.cls_id 
+                 INNER JOIN section sc ON sc.sec_id = a.sec_id AND sc.cls_id = a.cls_id
+                 WHERE a.date_updated = '$date' AND a.t_id = '$t_id'";
+
+         return mysqli_query($con, $view);
+
+    }
+
+    function GetstdAttendance($date,$t_id,$std_id){
+
+        include 'connection.php';
+
         // $date = $data['dateTaken'];
         // $t_id = $data['t_id'];
 
-        $view = "SELECT s.reg_no, s.std_name, c.cls_name, sc.sec_name, a.status_check
+        $view = "SELECT s.reg_no, s.std_name, c.cls_name, sc.sec_name, a.status_check, a.date_updated
                 FROM attendance a
                 INNER JOIN student s ON s.reg_no = a.std_id AND s.cls_id = a.cls_id AND s.sec_id = a.sec_id
                 INNER JOIN class c ON c.cls_id = a.cls_id 
                 INNER JOIN section sc ON sc.sec_id = a.sec_id AND sc.cls_id = a.cls_id
-                WHERE a.date_updated = '$date' AND a.t_id = '$t_id'
+                WHERE a.date_updated = '$date' AND a.t_id = '$t_id' AND s.reg_no = '$std_id'
                 ";
 
         return mysqli_query($con, $view);
+    }
+
+    function getStuById($std_id){
+        include 'connection.php';
+    
+        $q1= "SELECT * FROM student WHERE reg_no='$std_id' AND is_deleted='0'";
+        return mysqli_query($con,$q1);
+    }
+
+    function GetAttendanceByCls($date,$cls_id,$sec_id){
+
+        include 'connection.php';
+
+        $count = checkStatusofCls($sec_id);
+
+        if($count > 0){
+            $view = "SELECT s.reg_no, s.std_name, c.cls_name, sc.sec_name, a.status_check
+            FROM attendance a
+            INNER JOIN student s ON s.reg_no = a.std_id AND s.cls_id = a.cls_id AND s.sec_id = a.sec_id
+            INNER JOIN class c ON c.cls_id = a.cls_id 
+            INNER JOIN section sc ON sc.sec_id = a.sec_id AND sc.cls_id = a.cls_id
+            WHERE a.date_updated = '$date' AND c.cls_id = '$cls_id' AND sc.sec_id = '$sec_id'";
+        }else{
+            echo json_encode($count);
+        }
+
+         return mysqli_query($con, $view);
+
+    }
+
+    function checkStatusofCls($sec_id){
+
+        include 'connection.php';
+
+        $getall = "SELECT * FROM section WHERE sec_id = $sec_id AND is_assigned = '0' ";
+        $check = mysqli_query($con,$getall);
+        return mysqli_num_rows($check);
     }
 
     

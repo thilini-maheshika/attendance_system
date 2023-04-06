@@ -4,13 +4,14 @@ require_once '../server/include/common.php';
 include 'pages/auth.php';?>
 
 <?php 
-if(isset($_REQUEST['t_id'])){
-    $t_id = $_REQUEST['t_id'];
+if(isset($_REQUEST['cls_id'])){
+    $cls_id = $_REQUEST['cls_id'];
+    $sec_id = $_REQUEST['sec_id'];
 }
 
 $filename = "Attendance list " . date("Y-m-d") . ".csv";
 $dateTaken = date("Y-m-d");
-$getatt = GetclassAttendance($dateTaken, $t_id);
+$getatt = GetAttendanceByCls($dateTaken, $cls_id ,$sec_id);
 
 // Set headers to specify file format and name
 header("Content-type: text/csv");

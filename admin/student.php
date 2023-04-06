@@ -129,7 +129,12 @@ session_start();?>
 
                             <tbody>
                                 <?php 
-                                    $getstd = fetchStudent();
+
+                                    if (isset($_SESSION['student'])) { 
+                                        $getstd = getStuById($_SESSION['student']);
+                                    }else{
+                                        $getstd = fetchStudent();
+                                    }
 
                                     while ($row = mysqli_fetch_assoc($getstd)) {
                                         $id = $row['reg_no'];

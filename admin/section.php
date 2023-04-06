@@ -9,7 +9,7 @@
 
     <div class="container-fluid py-4">
         <div class="row">
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="padding-bottom:0.7rem;">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="padding-bottom:0.7rem; margin-top:0.5rem;">
                 <button class="btn btn-secondary me-md-2" type="button" data-bs-toggle="modal"
                     data-bs-target="#exampleModal">Add New</button>
             </div>
@@ -76,6 +76,7 @@
                                     <th>Class Name</th>
                                     <th>Section Name</th>
                                     <th>Status</th>
+                                    <th>Attendance</th>
                                     <th style="width:8em;">Delete</th>
                                 </tr>
                             </thead>
@@ -115,7 +116,13 @@
                                                 echo 'Assigned';
                                             }
                                         ?>
-                                    </td>             
+                                    </td>   
+                                    <td>
+                                        <?php 
+                                            if($status == 1){ ?>
+                                    <a href="reportByClass.php?cls_id=<?php echo $cls_id; ?>&sec_id=<?php echo $id; ?>">Download Report</a>
+                                        <?php } ?>
+                                </td>          
                                     <td><button class="btn btn-danger btn-sm" onclick="deleteData(<?php echo $id; ?> ,'section','sec_id')"><i
                                         class="fa-solid fa-trash"></i> Delete </button></td>
                                 </tr>

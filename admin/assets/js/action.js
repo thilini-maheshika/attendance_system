@@ -320,7 +320,7 @@ function userLogin(myForm){
     
                               window.location.href = 'index.php';
     
-                            } else {
+                            } else if (fd.get('userType') == 'student'){
     
                               window.location.href = 'index.php';
                             }
@@ -410,4 +410,14 @@ function classAttendance(myForm,t_id){
     var fd = new FormData(myForm);
     var value = fd.get('dateTaken');
     window.location.href="viewattendance.php?key=" + value;
+}
+
+
+function studentAttendance(myForm,t_id){
+
+    var fd = new FormData(myForm);
+    var value = fd.get('dateTaken');
+    var std_id = fd.get('std_id');
+    window.location.href = "stdattendance.php?key=" + value + "&std_id=" + std_id;
+
 }
