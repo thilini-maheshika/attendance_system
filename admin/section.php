@@ -65,7 +65,7 @@
         <div class="col-8">
             <div class="card mb-4">
                 <div class="card-header pb-0">
-                    <h5>Class Management</h5>
+                    <h5>Classroom Management</h5>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive p-0">
@@ -73,10 +73,9 @@
                             <thead class="table-dark" style="width: 100%;">
                                 <tr>
                                     <th>#</th>
-                                    <th>Class Name</th>
-                                    <th>Section Name</th>
+                                    <th>Grade</th>
+                                    <th>Classroom</th>
                                     <th>Status</th>
-                                    <th>Attendance</th>
                                     <th style="width:8em;">Delete</th>
                                 </tr>
                             </thead>
@@ -110,6 +109,7 @@
                                     <td><?php echo $name;?></td>
                                     <td>
                                         <?php 
+
                                             if($status == 0){
                                                 echo 'UnAssigned';
                                             }else{
@@ -117,12 +117,6 @@
                                             }
                                         ?>
                                     </td>   
-                                    <td>
-                                        <?php 
-                                            if($status == 1){ ?>
-                                    <a href="reportByClass.php?cls_id=<?php echo $cls_id; ?>&sec_id=<?php echo $id; ?>">Download Report</a>
-                                        <?php } ?>
-                                </td>          
                                     <td><button class="btn btn-danger btn-sm" onclick="deleteData(<?php echo $id; ?> ,'section','sec_id')"><i
                                         class="fa-solid fa-trash"></i> Delete </button></td>
                                 </tr>

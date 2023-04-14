@@ -29,7 +29,6 @@
                                     $email = $row['t_email'];
                                     $address = $row['t_address'];
                                     $phone = $row['t_phone'];
-                                    $cls_id = $row['cls_id'];
                                     $sec_id = $row['sec_id'];
                                     $regdate = $row['date_updated'];
 
@@ -39,6 +38,9 @@
                             <input type="text" class="form-control"
                                 onchange="EditData(this,<?php echo $id; ?>,'t_name','teacher','t_id')"
                                 id="name<?php echo $id; ?>" name="name" value="<?php echo $name?>">
+
+                            <input type="hidden" class="form-control"
+                                id="t_id<?php echo $id; ?>" name="t_id" value="<?php echo $id?>">
                         </div>
 
                         <div class="form-group col-md-12">
@@ -63,41 +65,21 @@
                         </div>
 
                         <div class="form-group col-md-12">
-                            <label for="class" class="a"><b>Class</b></label>
-                            <select type="text" class='form-control norad tx12'
-                                onchange="EditData(this,<?php echo $id; ?>,'cls_id','teacher','t_id')" name="class"
-                                id="class<?php echo $id;?>">
-
-                                <?php 
-                                    $res=fetchClass();
-                                    
-                                    while($row1 = mysqli_fetch_assoc($res)){ ?>
-
-                                    <option value="<?php echo $row1['cls_id']; ?>"
-                                        <?php if($cls_id == $row1['cls_id']) echo "selected" ?>>
-                                        <?php echo $row1['cls_name']; ?></option>
-                                <?php } ?>
+                            <label for="name" class="a"><b>Select Class</b></label>
+                            <select type="text" class='form-control norad tx12' name="sec_id" onchange="loadclass(this, <?php echo $id; ?>, 'sec_id','teacher','t_id', <?php echo  $sec_id; ?>)"
+                            id="sec_id<?php echo $id;?>">
+                            <option selected disabled>--Select Class--</option>
+                            <?php 
+                                $res = fetchSectionByall();
+                                while ($row = mysqli_fetch_assoc($res)) {
+                                    $class_list = fetchClassBySectionId($row['cls_id']);
+                                    $class_row = mysqli_fetch_assoc($class_list); ?>
+                                        <option value='<?php  echo $row['sec_id']; ?>' <?php if($row['sec_id'] == $sec_id) : echo "selected"; endif; ?> ><?php echo $class_row['cls_name']." ".$row['sec_name'] ?></option>
+                                <?php }
+                            ?>
                             </select>
                         </div>
-
-                        <div class="form-group col-md-12">
-                            <label for="section" class="a"><b>Section</b></label>
-                            <select type="text" class='form-control norad tx12'
-                                onchange="EditData(this,<?php echo $id; ?>,'sec_id','teacher','t_id')" name="section"
-                                id="section<?php echo $id;?>">
-
-                                <?php 
-                                    $res1=fetchSection();
-                                    
-                                    while($row2 = mysqli_fetch_assoc($res1)){ ?>
-
-                                    <option value="<?php echo $row2['sec_id']; ?>"
-                                        <?php if($sec_id == $row2['sec_id']) echo "selected" ?>>
-                                        <?php echo $row2['sec_name']; ?></option>
-                                <?php } ?>
-                            </select>
-                        </div>
-
+                     
                         <?php } ?>
                     </div>
                 </div>

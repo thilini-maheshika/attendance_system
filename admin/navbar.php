@@ -31,7 +31,7 @@
                             <a class="nav-link" href="class.php">Create Grade</a>
                         </div>
                         <div class="bg-white">
-                            <a class="nav-link" href="section.php">Create Section</a>
+                            <a class="nav-link" href="section.php">Create Classroom</a>
                         </div>
                     </div>
                 </li>

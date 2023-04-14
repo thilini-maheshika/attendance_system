@@ -33,15 +33,7 @@ session_start();
                         ?>
                         </select>
                     </div>
-                    <!-- <div class="col-xl-6">
-                        <label class="form-control-label">Type<span class="text-danger ml-2">*</span></label>
-                        <select required name="type" class="form-control mb-3">
-                            <option value="">--Select--</option>
-                            <option value="1">All</option>
-                            <option value="2">By Single Date</option>
-                            <option value="3">By Date Range</option>
-                        </select>
-                    </div> -->
+            
                     <div class="col-xl-6" id="dateInputDiv">
                         <label class="form-control-label">Select Date</label>
                         <input type="date" class="form-control" name="dateTaken" id="exampleInputFirstName"
@@ -72,7 +64,6 @@ session_start();
                         <th>Registration No</th>
                         <th>Student Name</th>
                         <th>Class</th>
-                        <th>Section</th>
                         <th>Attendance</th>
                         <th>Date</th>
                     </tr>
@@ -85,8 +76,10 @@ session_start();
                     <tr>
                         <td><?php echo $row['reg_no']; ?></td>
                         <td><?php echo $row['std_name']; ?></td>
-                        <td><?php echo $row['cls_name']; ?></td>
-                        <td><?php echo $row['sec_name']; ?></td>
+                        <?php 
+                            $sec_name = $row['cls_name']." ". $row['sec_name'];
+                        ?>
+                        <td><?php echo $sec_name;?></td>
                         <td><?php 
                                if($status == 1){ ?>
                             <button class="btn btn-sm btn-warning" disabled="disabled">Present</button>

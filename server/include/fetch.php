@@ -43,10 +43,10 @@
         $getall = "SELECT student.reg_no, student.std_name, class.cls_id, class.cls_name, section.sec_id, section.sec_name,
         teacher.t_name
         FROM student
-        JOIN class ON student.cls_id = class.cls_id
-        JOIN section ON student.sec_id = section.sec_id AND student.cls_id = section.cls_id
-        JOIN teacher ON student.cls_id = teacher.cls_id AND student.sec_id = teacher.sec_id
-        WHERE teacher.t_id = '$t_id' GROUP BY student.reg_no";
+        JOIN class ON student.sec_id = class.cls_id
+        JOIN section ON student.sec_id = section.sec_id AND student.sec_id = section.sec_id
+        JOIN teacher ON student.sec_id = teacher.sec_id AND student.sec_id = teacher.sec_id
+        WHERE teacher.t_id = '$t_id' AND student.is_deleted = '0' GROUP BY student.reg_no";
         
         return mysqli_query($con, $getall);
     }

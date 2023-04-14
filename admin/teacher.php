@@ -27,7 +27,7 @@
                                 <div class="form-group col-md-12">
                                     <label for="name" class="a"><b>Teacher Name</b></label>
                                     <input type="text" class="form-control" id="name" name="name"
-                                        placeholder="Student Name">
+                                        placeholder="Teacher Name">
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label for="name" class="a"><b>Email</b></label>
@@ -46,35 +46,19 @@
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label for="name" class="a"><b>Select Class</b></label>
-                                        <select type="text" class='form-control norad tx12' name="class" id="class">
-                                            <option selected>--Select Class--</option>
-                                            <?php 
-                                                $res=fetchClass();
-                                                $count=1;
-                                                while($row=mysqli_fetch_assoc($res)){
-                                                    echo "<option value='".$row['cls_id']."'>".$row['cls_name']."</option>";
-                                                    $count++;
-                                                }
-                                
-                                            ?>
-                                        </select>
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <label for="name" class="a"><b>Select Section</b></label>
-                                        <select type="text" class='form-control norad tx12' name="sect" id="sect">
-                                            <option selected>--Select Section--</option>
-                                            <?php 
-                                                $res=fetchSection();
-                                                $count=1;
-                                                while($row=mysqli_fetch_assoc($res)){
-                                                    if($row['is_assigned'] == 0){
-                                                        echo "<option value='".$row['sec_id']."'>".$row['sec_name']."</option>";
-                                                    $count++;
-                                                    }
-                                                }
-                                
-                                            ?>
-                                        </select>
+                                    <select type="text" class='form-control norad tx12'  name="sect" id="sect"
+                                         required>
+                                        <option selected disabled>--Select Class--</option>
+                                        <?php 
+                                            $res = fetchSectionByall();
+                                            while ($row = mysqli_fetch_assoc($res)) {
+                                                $class_list = fetchClassBySectionId($row['cls_id']);
+                                                $class_row = mysqli_fetch_assoc($class_list);
+
+                                                echo "<option value='".$row['sec_id']."'>".$class_row['cls_name']."".$row['sec_name']."</option>";
+                                            }
+                                        ?>
+                                    </select>
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label for="password" class="a"><b>Password</b></label>
@@ -114,7 +98,6 @@
                                     <th>Address</th>
                                     <th>Phone Number</th>
                                     <th>Class</th>
-                                    <th>Section</th>
                                     <th>Date Registered</th>
                                     <th colspan="2">Action</th>
                                 </tr>
@@ -130,7 +113,6 @@
                                         $email = $row['t_email'];
                                         $address = $row['t_address'];
                                         $phone = $row['t_phone'];
-                                        $cls_id = $row['cls_id'];
                                         $sec_id = $row['sec_id'];
                                         $regdate = $row['date_updated'];
                                 ?>
@@ -142,19 +124,12 @@
                                     <td><?php echo $phone; ?></td>
 
                                     <?php
-                                            $cls = getClassbyID($cls_id);
-                                            while($row1 = mysqli_fetch_assoc($cls)){
-                                                $cls_name = $row1['cls_name'];
-                                        ?>
-
-                                    <td><?php echo $cls_name; ?></td>
-                                    
-                                    <?php } ?>
-
-                                    <?php
                                             $sec = getSecById($sec_id);
                                             while($row2 = mysqli_fetch_assoc($sec)){
-                                                $sec_name = $row2['sec_name'];
+                                                $class_list = fetchClassBySectionId($row2['cls_id']);
+                                                $class_row = mysqli_fetch_assoc($class_list);
+
+                                                $sec_name = $class_row['cls_name']." ". $row2['sec_name'];
                                         ?>
 
                                     <td><?php echo $sec_name; ?></td>

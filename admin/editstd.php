@@ -27,7 +27,6 @@
                                         $std_address = $row['std_address'];
                                         $std_phone = $row['std_phone'];
                                         $std_username = $row['std_uname'];
-                                        $cls_id = $row['cls_id'];
                                         $sec_id = $row['sec_id'];
 
                                 ?>
@@ -60,38 +59,18 @@
                         </div>
 
                         <div class="form-group col-md-12">
-                            <label for="class" class="a"><b>Class</b></label>
-                            <select type="text" class='form-control norad tx12'
-                                onchange="EditData(this,<?php echo $std_id; ?>,'cls_id','student','reg_no')" name="class"
-                                id="class<?php echo $std_id;?>">
-
-                                <?php 
-                                    $res=fetchClass();
-                                    
-                                    while($row1 = mysqli_fetch_assoc($res)){ ?>
-
-                                    <option value="<?php echo $row1['cls_id']; ?>"
-                                        <?php if($cls_id == $row1['cls_id']) echo "selected" ?>>
-                                        <?php echo $row1['cls_name']; ?></option>
-                                <?php } ?>
-                            </select>
-                        </div>
-
-                        <div class="form-group col-md-12">
-                            <label for="section" class="a"><b>Section</b></label>
-                            <select type="text" class='form-control norad tx12'
-                                onchange="EditData(this,<?php echo $std_id; ?>,'sec_id','student','reg_no')" name="section"
-                                id="section<?php echo $std_id;?>">
-
-                                <?php 
-                                    $res1=fetchSection();
-                                    
-                                    while($row2 = mysqli_fetch_assoc($res1)){ ?>
-
-                                    <option value="<?php echo $row2['sec_id']; ?>"
-                                        <?php if($sec_id == $row2['sec_id']) echo "selected" ?>>
-                                        <?php echo $row2['sec_name']; ?></option>
-                                <?php } ?>
+                            <label for="name" class="a"><b>Select Class</b></label>
+                            <select type="text" class='form-control norad tx12' name="sec_id" onchange="loadclass(this, <?php echo $std_id; ?>, 'sec_id','student','reg_no', <?php echo  $sec_id; ?>)"
+                            id="sec_id<?php echo $std_id;?>">
+                            <option selected disabled>--Select Class--</option>
+                            <?php 
+                                $res = fetchSectionByall();
+                                while ($row = mysqli_fetch_assoc($res)) {
+                                    $class_list = fetchClassBySectionId($row['cls_id']);
+                                    $class_row = mysqli_fetch_assoc($class_list); ?>
+                                        <option value='<?php  echo $row['sec_id']; ?>' <?php if($row['sec_id'] == $sec_id) : echo "selected"; endif; ?> ><?php echo $class_row['cls_name']." ".$row['sec_name'] ?></option>
+                                <?php }
+                            ?>
                             </select>
                         </div>
 

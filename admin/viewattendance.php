@@ -47,7 +47,6 @@ session_start();
                                <th>Registration No</th>
                                <th>Student Name</th>
                                <th>Class</th>
-                               <th>Section</th>
                                <th>Attendance</th>
                            </tr>
                        </thead>
@@ -63,8 +62,10 @@ session_start();
                            <tr>
                                <td><?php echo $row['reg_no']; ?></td>
                                <td><?php echo $row['std_name']; ?></td>
-                               <td><?php echo $row['cls_name']; ?></td>
-                               <td><?php echo $row['sec_name']; ?></td>
+                               <?php 
+                                $sec_name = $row['cls_name']." ". $row['sec_name'];
+                               ?>
+                               <td><?php echo $sec_name;?></td>
                                <td><?php 
                                
                                    if($status == 1){ ?>
