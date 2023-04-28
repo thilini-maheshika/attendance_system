@@ -200,7 +200,6 @@ function updateCred(form, id, field, table, tbl_id) {
                         success: function ($data) {
                             console.log($data);
                             successToast("Password Updated");
-
                         },
                         error: function (error) {
                             console.log(`Error ${error}`);

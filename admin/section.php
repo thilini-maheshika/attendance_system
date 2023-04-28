@@ -119,12 +119,16 @@
                                             }
                                         ?>
                                     </td>   
+<<<<<<< HEAD
                                     <td>
                                         <?php if($status == 1){ ?>
                                         <a  href="get_report_admin.php?sec_id=<?php echo $id; ?>" class="btn btn-info btn-sm" >Reports </a>
                                         <?php } ?>
                                     </td>
                                     <td><button class="btn btn-danger btn-sm" onclick="deleteSection(<?php echo $id; ?> ,'section','sec_id')"><i
+=======
+                                    <td><button class="btn btn-danger btn-sm" onclick="deleteData(<?php echo $id; ?> ,'section','sec_id')"><i
+>>>>>>> 63469d241e858ac57bb90d3ca0641840510b3b7e
                                         class="fa-solid fa-trash"></i> Delete </button></td>
                                 </tr>
                                 <?php } ?>

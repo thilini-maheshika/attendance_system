@@ -160,20 +160,131 @@ function fetch_sectionTe($data)
     echo json_encode($sections);
 }
 
+<<<<<<< HEAD
 function getClassbyID($cls_id)
 {
 
     include 'connection.php';
+=======
+    function checksecByClsID($cls_id){
+        include 'connection.php';
+    
+        $q1= "SELECT * FROM section WHERE cls_id='$cls_id' AND is_deleted='0'";
+        $sec_check = mysqli_query($con,$q1);
+        return mysqli_num_rows($sec_check);
+    }
+
+    function fetchSectionByClsId($class){
+
+        include 'connection.php';
+
+        $viewsec = "SELECT * FROM section WHERE cls_id = $class AND is_deleted = '0' AND is_assigned = '0'";
+        return mysqli_query($con, $viewsec);
+    }
+
+    function fetchClassBySectionId($cls_id){
+
+        include 'connection.php';
+
+        $viewsec = "SELECT * FROM class WHERE cls_id = '$cls_id'";
+        return mysqli_query($con, $viewsec);
+    }
+
+    function fetchSectionByall(){
+
+        include 'connection.php';
+
+        $viewsec = "SELECT * FROM section";
+        return mysqli_query($con, $viewsec);
+    }
+
+    function IsSectionAssignedCheck($sec_id) {
+
+        include 'connection.php';
+        
+        $sql = "SELECT is_assigned FROM section WHERE sec_id = '$sec_id'";
+        $result = mysqli_query($con, $sql);
+        $row = mysqli_fetch_assoc($result);
+        return $row['is_assigned'] === '1' ? 'true' : 'false';
+    }
+    
+    
+
+    function checkTeacherByEmail($uname){
+        
+        include 'connection.php';
+    
+        $q1= "SELECT * FROM teacher WHERE t_email='$uname' AND is_deleted='0'";
+        $res=  mysqli_query($con,$q1);
+        return mysqli_num_rows($res);
+    }
+>>>>>>> 63469d241e858ac57bb90d3ca0641840510b3b7e
 
     $viewcls = "SELECT * FROM class WHERE cls_id='$cls_id' AND is_deleted='0'";
     return mysqli_query($con, $viewcls);
 
+<<<<<<< HEAD
 }
+=======
+    function fetch_section($data) {
+        include 'connection.php';
+    
+        $cls_id = $data['value'];
+    
+        $sql = "SELECT sec_id,sec_name FROM section WHERE cls_id = $cls_id AND is_assigned = 1 AND is_deleted = 0";
+        $result = mysqli_query($con, $sql);
+        $sections = array();
+    
+        while ($row = mysqli_fetch_assoc($result)) {
+            $sections[] = $row;
+        }
+    
+        // Return the fetched sections as JSON
+        echo json_encode($sections);
+    }
+
+    function fetch_sectionTe($data) {
+        include 'connection.php';
+    
+        $cls_id = $data['value'];
+    
+        $sql = "SELECT sec_id,sec_name FROM section WHERE cls_id = $cls_id AND is_assigned = 0 AND is_deleted = 0";
+        $result = mysqli_query($con, $sql);
+        $sections = array();
+    
+        while ($row = mysqli_fetch_assoc($result)) {
+            $sections[] = $row;
+        }
+    
+        // Return the fetched sections as JSON
+        echo json_encode($sections);
+    }
+    
+    function getClassbyID($cls_id){
+>>>>>>> 63469d241e858ac57bb90d3ca0641840510b3b7e
 
 function getClassbySectionID($cls_id)
 {
 
+<<<<<<< HEAD
     include 'connection.php';
+=======
+    function getClassbySectionID($cls_id){
+
+        include 'connection.php';
+    
+        $viewcls = "SELECT * FROM section WHERE cls_id='$cls_id'";
+        return mysqli_query($con,$viewcls);
+    
+    }
+
+    function getAllTeByID($t_id){
+        include 'connection.php';
+    
+        $q1= "SELECT * FROM teacher WHERE t_id='$t_id' AND is_deleted='0'";
+        return mysqli_query($con,$q1);
+    }
+>>>>>>> 63469d241e858ac57bb90d3ca0641840510b3b7e
 
     $viewcls = "SELECT * FROM section WHERE cls_id='$cls_id'";
     return mysqli_query($con, $viewcls);
@@ -271,7 +382,16 @@ function CheckLogin($data)
 function GetclassAttendance($date, $sec_id)
 {
 
+<<<<<<< HEAD
     include 'connection.php';
+=======
+        $view = "SELECT s.reg_no, s.std_name, c.cls_name, sc.sec_name, a.status_check
+                 FROM attendance a
+                 INNER JOIN student s ON s.reg_no = a.std_id AND s.sec_id = a.sec_id 
+                 INNER JOIN class c ON a.sec_id = c.cls_id
+                 INNER JOIN section sc ON sc.sec_id = a.sec_id 
+                 WHERE a.date_updated = '$date' AND a.t_id = '$t_id'";
+>>>>>>> 63469d241e858ac57bb90d3ca0641840510b3b7e
 
     $view = "SELECT *  FROM attendance JOIN student ON student.reg_no = attendance.std_id 
             JOIN section ON section.sec_id = attendance.sec_id  JOIN class ON class.cls_id = class.cls_id 
@@ -284,9 +404,13 @@ function GetclassAttendance($date, $sec_id)
 function GetstdAttendance($date, $t_id, $std_id)
 {
 
+<<<<<<< HEAD
     include 'connection.php';
 
     $view = "SELECT s.reg_no, s.std_name, c.cls_name, sc.sec_name, a.status_check, a.date_updated
+=======
+        $view = "SELECT s.reg_no, s.std_name, c.cls_name, sc.sec_name, a.status_check, a.date_updated
+>>>>>>> 63469d241e858ac57bb90d3ca0641840510b3b7e
                 FROM attendance a
                 INNER JOIN student s ON s.reg_no = a.std_id AND s.sec_id = a.sec_id
                 INNER JOIN class c ON c.cls_id = a.sec_id 
@@ -301,6 +425,7 @@ function getStuById($std_id)
 {
     include 'connection.php';
 
+<<<<<<< HEAD
     $q1 = "SELECT * FROM student WHERE reg_no='$std_id' AND is_deleted='0'";
     return mysqli_query($con, $q1);
 }
@@ -349,4 +474,49 @@ function checkStatus($sec_id)
 
 
 
+=======
+    // function GetAttendanceByCls($date,$cls_id,$sec_id){
+
+    //     include 'connection.php';
+
+    //     $count = checkStatusofCls($sec_id);
+
+    //     if($count > 0){
+    //         $view = "SELECT s.reg_no, s.std_name, c.cls_name, sc.sec_name, a.status_check
+    //         FROM attendance a
+    //         INNER JOIN student s ON s.reg_no = a.std_id AND s.sec_id = a.sec_id
+    //         INNER JOIN class c ON c.cls_id = a.sec_id 
+    //         INNER JOIN section sc ON sc.sec_id = a.sec_id 
+    //         WHERE a.date_updated = '$date' AND c.cls_id = '$cls_id' AND sc.sec_id = '$sec_id'";
+
+    //     return mysqli_query($con, $view);
+
+    //     }else{
+    //         echo json_encode($count);
+    //     }
+    // }
+
+    // function checkStatusofCls($sec_id){
+
+    //     include 'connection.php';
+
+    //     $getall = "SELECT * FROM section WHERE sec_id = $sec_id AND is_assigned = '0' ";
+    //     $check = mysqli_query($con,$getall);
+    //     return mysqli_num_rows($check);
+    // }
+    
+
+    function checkStatus($sec_id){
+        include 'connection.php';
+    
+        $sql = "SELECT COUNT(*) as count FROM section WHERE sec_id = '$sec_id' AND is_assigned = '1'";
+        $result = mysqli_query($con, $sql);
+    
+        $row = mysqli_fetch_assoc($result);
+        return $row['count'];
+    }
+
+    
+    
+>>>>>>> 63469d241e858ac57bb90d3ca0641840510b3b7e
 ?>

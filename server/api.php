@@ -29,7 +29,10 @@ if(isset($_GET['function_code']) && $_GET['function_code'] == 'addStudent'){
     fetchSectionByClsId($_POST);
 }else if(isset($_GET['function_code']) && $_GET['function_code'] == 'IsSectionAssigned'){
     IsSectionAssignedCheck($_POST);
+<<<<<<< HEAD
 }else if(isset($_GET['function_code']) && $_GET['function_code'] == 'getSectionHasStudentORTeacher'){
     getSectionHasStudentORTeacher($_GET);
+=======
+>>>>>>> 63469d241e858ac57bb90d3ca0641840510b3b7e
 }
 ?>

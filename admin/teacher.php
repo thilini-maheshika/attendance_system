@@ -118,6 +118,7 @@
 
                                 while ($row = mysqli_fetch_assoc($getTeacher)) {
 
+<<<<<<< HEAD
                                     $id = $row['t_id'];
                                     $name = $row['t_name'];
                                     $email = $row['t_email'];
@@ -156,6 +157,31 @@
                                                 <?php echo $sec_name; ?>
                                             </td>
                                         <?php } ?>
+=======
+                                        $id = $row['t_id'];
+                                        $name = $row['t_name'];
+                                        $email = $row['t_email'];
+                                        $address = $row['t_address'];
+                                        $phone = $row['t_phone'];
+                                        $sec_id = $row['sec_id'];
+                                        $regdate = $row['date_updated'];
+                                ?>
+                                <tr>
+                                    <td><?php echo $id; ?></td>
+                                    <td><?php echo $name; ?></td>
+                                    <td><?php echo $email; ?></td>
+                                    <td><?php echo $address; ?></td>
+                                    <td><?php echo $phone; ?></td>
+
+                                    <?php
+                                            $sec = getSecById($sec_id);
+                                            while($row2 = mysqli_fetch_assoc($sec)){
+                                                $class_list = fetchClassBySectionId($row2['cls_id']);
+                                                $class_row = mysqli_fetch_assoc($class_list);
+
+                                                $sec_name = $class_row['cls_name']." ". $row2['sec_name'];
+                                        ?>
+>>>>>>> 63469d241e858ac57bb90d3ca0641840510b3b7e
 
                                         <td>
                                             <?php echo $regdate; ?>
