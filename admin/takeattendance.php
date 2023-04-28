@@ -40,7 +40,6 @@ session_start();
                                         <th>Registration No</th>
                                         <th>Student Name</th>
                                         <th>Class</th>
-                                        <th>Section</th>
                                         <th>Check</th>
                                     </tr>
                                 </thead>
@@ -61,8 +60,17 @@ session_start();
                                     <tr>
                                         <td><?php echo $id; ?></td>
                                         <td><?php echo $name; ?></td>
-                                        <td><?php echo $cls_name; ?></td>
-                                        <td><?php echo $sec_name; ?></td>
+                                        <?php
+                                            $sec = getSecById($sec_id);
+                                            while($row2 = mysqli_fetch_assoc($sec)){
+                                                $class_list = fetchClassBySectionId($row2['cls_id']);
+                                                $class_row = mysqli_fetch_assoc($class_list);
+
+                                                $sec_name = $class_row['cls_name']." ". $row2['sec_name'];
+                                        ?>
+
+                                    <td><?php echo $sec_name; ?></td>
+                                    <?php } ?>
                                         <td>
                                             <input type="checkbox" name="check" id="check_<?php echo $id; ?>"
                                                 value="<?php echo $id; ?>" data-id="<?php echo $id; ?>"

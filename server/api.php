@@ -20,7 +20,16 @@ if(isset($_GET['function_code']) && $_GET['function_code'] == 'addStudent'){
 }else if(isset($_GET['function_code']) && $_GET['function_code'] == 'login'){
     CheckLogin($_POST);
 }else if(isset($_GET['function_code']) && $_GET['function_code'] == 'checkAttendance'){
-    GetAttendance($_POST);
+    checkAttendanceBatch($_POST);
+}else if(isset($_GET['function_code']) && $_GET['function_code'] == 'fetchsec'){
+    fetch_section($_POST);
+}else if(isset($_GET['function_code']) && $_GET['function_code'] == 'fetchsecTe'){
+    fetch_sectionTe($_POST);
+}else if(isset($_GET['function_code']) && $_GET['function_code'] == 'fetchSecs'){
+    fetchSectionByClsId($_POST);
+}else if(isset($_GET['function_code']) && $_GET['function_code'] == 'IsSectionAssigned'){
+    IsSectionAssignedCheck($_POST);
+}else if(isset($_GET['function_code']) && $_GET['function_code'] == 'getSectionHasStudentORTeacher'){
+    getSectionHasStudentORTeacher($_GET);
 }
 ?>
-

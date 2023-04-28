@@ -1,6 +1,7 @@
 <?php
     include 'pages/auth.php';
     require_once '../server/include/connection.php';
+    require_once '../server/api.php';
 
 
  ?>
@@ -31,7 +32,7 @@
                             <a class="nav-link" href="class.php">Create Grade</a>
                         </div>
                         <div class="bg-white">
-                            <a class="nav-link" href="section.php">Create Section</a>
+                            <a class="nav-link" href="section.php">Create Classroom</a>
                         </div>
                     </div>
                 </li>
@@ -57,7 +58,7 @@
                             <a class="nav-link" href="stdAttendance.php">View Student Attendance</a>
                         </div>
                         <div class="bg-white">
-                            <a class="nav-link" href="report.php?t_id=<?php echo $_SESSION['teacher']; ?>">Report(xls)</a>
+                            <a class="nav-link" href="get_report.php">Reports</a>
                             <?php  ?>
 
                         </div>

@@ -4,13 +4,14 @@ require_once '../server/include/common.php';
 include 'pages/auth.php';?>
 
 <?php 
-if(isset($_REQUEST['t_id'])){
-    $t_id = $_REQUEST['t_id'];
+if(isset($_REQUEST['sec_id']) && $_REQUEST['date']){
+    $sec_id = $_REQUEST['sec_id'];
+    $date = $_REQUEST['date'];
 }
 
-$filename = "Attendance list " . date("Y-m-d") . ".csv";
-$dateTaken = date("Y-m-d");
-$getatt = GetclassAttendance($dateTaken, $t_id);
+$filename = "Attendance list " . $date . ".csv";
+$dateTaken = $date;
+$getatt = GetclassAttendance($dateTaken, $sec_id);
 
 // Set headers to specify file format and name
 header("Content-type: text/csv");
@@ -20,7 +21,7 @@ header("Content-Disposition: attachment; filename=".$filename);
 $output = fopen("php://output", "w");
 
 // Write headers to CSV
-fputcsv($output, array('Registration No', 'Student Name', 'Class', 'Section', 'Attendance'));
+fputcsv($output, array('Registration No', 'Student Name', 'Date', 'Section', 'Attendance'));
 
 //Fetch data from database and write to CSV
 if($getatt){
@@ -31,7 +32,7 @@ if($getatt){
             } else {
                 $status = "Absent";
             }
-            $csvData = array($row['reg_no'], $row['std_name'], $row['cls_name'], $row['sec_name'], $status);
+            $csvData = array($row['reg_no'], $row['std_name'], $row['date_updated'], $row['sec_name'], $status);
             fputcsv($output, $csvData);
         }
     } else {

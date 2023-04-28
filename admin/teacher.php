@@ -7,7 +7,8 @@
 
     <div class="container-fluid py-4">
         <div class="row">
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="padding-bottom:0.7rem; margin-top:0.5rem;">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end"
+                style="padding-bottom:0.7rem; margin-top:0.5rem;">
                 <button class="btn btn-secondary me-md-2" type="button" data-bs-toggle="modal"
                     data-bs-target="#exampleModal">Add New</button>
             </div>
@@ -27,7 +28,7 @@
                                 <div class="form-group col-md-12">
                                     <label for="name" class="a"><b>Teacher Name</b></label>
                                     <input type="text" class="form-control" id="name" name="name"
-                                        placeholder="Student Name">
+                                        placeholder="Teacher Name">
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label for="name" class="a"><b>Email</b></label>
@@ -46,35 +47,28 @@
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label for="name" class="a"><b>Select Class</b></label>
-                                        <select type="text" class='form-control norad tx12' name="class" id="class">
-                                            <option selected>--Select Class--</option>
-                                            <?php 
-                                                $res=fetchClass();
-                                                $count=1;
-                                                while($row=mysqli_fetch_assoc($res)){
-                                                    echo "<option value='".$row['cls_id']."'>".$row['cls_name']."</option>";
-                                                    $count++;
-                                                }
-                                
-                                            ?>
-                                        </select>
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <label for="name" class="a"><b>Select Section</b></label>
-                                        <select type="text" class='form-control norad tx12' name="sect" id="sect">
-                                            <option selected>--Select Section--</option>
-                                            <?php 
-                                                $res=fetchSection();
-                                                $count=1;
-                                                while($row=mysqli_fetch_assoc($res)){
-                                                    if($row['is_assigned'] == 0){
-                                                        echo "<option value='".$row['sec_id']."'>".$row['sec_name']."</option>";
-                                                    $count++;
-                                                    }
-                                                }
-                                
-                                            ?>
-                                        </select>
+                                    <select type="text" class='form-control norad tx12' name="sect" id="sect" required>
+                                        <option selected disabled>--Select Class--</option>
+                                        <?php
+                                        $res = fetchSectionByall();
+                                        while ($row = mysqli_fetch_assoc($res)) {
+                                            $class_list = fetchClassBySectionId($row['cls_id']);
+                                            $class_row = mysqli_fetch_assoc($class_list);
+                                            if ($row['sec_id'] == $sec_id): ?>
+                                                <option value='<?php echo $row['sec_id']; ?>' <?php if ($row['sec_id'] == $sec_id):
+                                                       echo "selected";
+                                                   endif; ?>><?php echo $class_row['cls_name'] . " " . $row['sec_name'] ?>
+                                                </option>
+
+                                            <?php endif;
+
+                                            if (getCountUsingID($row['sec_id'], 'teacher', 'sec_id') == 0): ?>
+                                                <option value='<?php echo $row['sec_id']; ?>'><?php echo $class_row['cls_name'] . " " . $row['sec_name'] ?>
+                                                </option>
+                                            <?php endif;
+                                        }
+                                        ?>
+                                    </select>
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label for="password" class="a"><b>Password</b></label>
@@ -114,74 +108,80 @@
                                     <th>Address</th>
                                     <th>Phone Number</th>
                                     <th>Class</th>
-                                    <th>Section</th>
                                     <th>Date Registered</th>
                                     <th colspan="2">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php 
-                                    $getTeacher = fetchTeacher();
+                                <?php
+                                $getTeacher = fetchTeacher();
 
-                                    while ($row = mysqli_fetch_assoc($getTeacher)) {
+                                while ($row = mysqli_fetch_assoc($getTeacher)) {
 
-                                        $id = $row['t_id'];
-                                        $name = $row['t_name'];
-                                        $email = $row['t_email'];
-                                        $address = $row['t_address'];
-                                        $phone = $row['t_phone'];
-                                        $cls_id = $row['cls_id'];
-                                        $sec_id = $row['sec_id'];
-                                        $regdate = $row['date_updated'];
-                                ?>
-                                <tr>
-                                    <td><?php echo $id; ?></td>
-                                    <td><?php echo $name; ?></td>
-                                    <td><?php echo $email; ?></td>
-                                    <td><?php echo $address; ?></td>
-                                    <td><?php echo $phone; ?></td>
+                                    $id = $row['t_id'];
+                                    $name = $row['t_name'];
+                                    $email = $row['t_email'];
+                                    $address = $row['t_address'];
+                                    $phone = $row['t_phone'];
+                                    $sec_id = $row['sec_id'];
+                                    $regdate = $row['date_updated'];
+                                    ?>
+                                    <tr>
+                                        <td>
+                                            <?php echo $id; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $name; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $email; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $address; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $phone; ?>
+                                        </td>
 
-                                    <?php
-                                            $cls = getClassbyID($cls_id);
-                                            while($row1 = mysqli_fetch_assoc($cls)){
-                                                $cls_name = $row1['cls_name'];
-                                        ?>
+                                        <?php
+                                        $sec = getSecById($sec_id);
+                                        while ($row2 = mysqli_fetch_assoc($sec)) {
+                                            $class_list = fetchClassBySectionId($row2['cls_id']);
+                                            $class_row = mysqli_fetch_assoc($class_list);
 
-                                    <td><?php echo $cls_name; ?></td>
-                                    
-                                    <?php } ?>
+                                            $sec_name = $class_row['cls_name'] . " " . $row2['sec_name'];
+                                            ?>
 
-                                    <?php
-                                            $sec = getSecById($sec_id);
-                                            while($row2 = mysqli_fetch_assoc($sec)){
-                                                $sec_name = $row2['sec_name'];
-                                        ?>
+                                            <td>
+                                                <?php echo $sec_name; ?>
+                                            </td>
+                                        <?php } ?>
 
-                                    <td><?php echo $sec_name; ?></td>
-                                    <?php } ?>
-
-                                    <td><?php echo $regdate; ?></td>
-                                    <td>
-                                        <div class="btn-group" role="group">
-                                            <button id="btnGroupDrop1" type="button"
-                                                class="btn btn-secondary btn-sm dropdown-toggle"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                Action
-                                            </button>
-                                            <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                <li><a class="dropdown-item"
-                                                        href="editTe.php?t_id=<?php echo $id; ?>"><i
-                                                            class="fa-solid fa-user-pen"></i> Edit </a></li>
-                                                <li><button class="dropdown-item"
-                                                        onclick="deleteData(<?php echo $id; ?> ,'teacher','t_id')"><i
-                                                            class="fa-solid fa-trash"></i> Delete </button></li>
-                                                <li><a class="dropdown-item" href="editpassTe.php?t_id=<?php echo $id; ?>"><i
-                                                            class="fa-solid fa-lock"></i>Change Credentials</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>
+                                        <td>
+                                            <?php echo $regdate; ?>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <button id="btnGroupDrop1" type="button"
+                                                    class="btn btn-secondary btn-sm dropdown-toggle"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                    Action
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                                    <li><a class="dropdown-item"
+                                                            href="editTe.php?t_id=<?php echo $id; ?>"><i
+                                                                class="fa-solid fa-user-pen"></i> Edit </a></li>
+                                                    <li><button class="dropdown-item"
+                                                            onclick="deleteData(<?php echo $id; ?> ,'teacher','t_id')"><i
+                                                                class="fa-solid fa-trash"></i> Delete </button></li>
+                                                    <li><a class="dropdown-item"
+                                                            href="editpassTe.php?t_id=<?php echo $id; ?>"><i
+                                                                class="fa-solid fa-lock"></i>Change Credentials</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 <?php } ?>
                             </tbody>
                         </table>
@@ -193,5 +193,3 @@
         <?php include 'pages/footer.php'; ?>
     </div>
 </main>
-
-

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 06, 2023 at 08:02 PM
+-- Generation Time: Apr 10, 2023 at 09:11 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -71,8 +71,12 @@ CREATE TABLE `class` (
 --
 
 INSERT INTO `class` (`cls_id`, `cls_name`, `is_deleted`) VALUES
-(1, 'Six', 0),
-(2, 'Seven', 1);
+(1, '1', 0),
+(2, 'Seven', 1),
+(3, '7', 0),
+(4, '5', 0),
+(5, '2', 0),
+(6, '3', 0);
 
 -- --------------------------------------------------------
 
@@ -93,8 +97,11 @@ CREATE TABLE `section` (
 --
 
 INSERT INTO `section` (`sec_id`, `cls_id`, `sec_name`, `is_assigned`, `is_deleted`) VALUES
-(1, '1', 'A', 1, 0),
-(2, '1', 'B', 0, 0);
+(1, '1', 'A', 0, 0),
+(2, '1', 'B', 1, 0),
+(3, '3', 'Q', 0, 0),
+(4, '3', 'C', 0, 0),
+(5, '1', 'C', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -108,7 +115,6 @@ CREATE TABLE `student` (
   `std_address` varchar(255) NOT NULL,
   `std_phone` varchar(10) NOT NULL,
   `std_uname` varchar(255) NOT NULL,
-  `cls_id` int(11) NOT NULL,
   `sec_id` int(255) NOT NULL,
   `std_pass` varchar(8) NOT NULL,
   `reg_date` datetime NOT NULL,
@@ -119,10 +125,12 @@ CREATE TABLE `student` (
 -- Dumping data for table `student`
 --
 
-INSERT INTO `student` (`reg_no`, `std_name`, `std_address`, `std_phone`, `std_uname`, `cls_id`, `sec_id`, `std_pass`, `reg_date`, `is_deleted`) VALUES
-(21, 'Tharushi', 'Thawalama', '0712997562', 'tharu@gmail.com', 1, 2, '12', '2023-03-29 13:50:17', 0),
-(22, 'Thilini Maheshika', 'Thawalama', '0776892356', 'thili', 1, 1, '1212', '2023-04-02 13:13:24', 0),
-(23, 'kanishka', 'Galle', '0713664071', 'kaniya', 1, 1, '123', '2023-04-05 22:31:15', 0);
+INSERT INTO `student` (`reg_no`, `std_name`, `std_address`, `std_phone`, `std_uname`, `sec_id`, `std_pass`, `reg_date`, `is_deleted`) VALUES
+(21, 'Tharushi', 'Thawalama gg', '0712997562', 'tharu@gmail.com', 2, '12', '2023-03-29 13:50:17', 0),
+(22, 'Thilini Maheshika', 'Thawalama', '0776892356', 'thili', 1, '1212', '2023-04-02 13:13:24', 0),
+(23, 'kanishka', 'Galle', '0713664071', 'kaniya', 1, '123', '2023-04-05 22:31:15', 1),
+(24, 'Kanishka', 'Galle', '0713664071', 'dew', 1, '12345', '2023-04-07 22:17:47', 0),
+(25, 'Dew Sadu', 'galle', '0713664071', 'sadu', 2, '123', '2023-04-10 23:51:49', 0);
 
 -- --------------------------------------------------------
 
@@ -155,7 +163,6 @@ CREATE TABLE `teacher` (
   `t_email` varchar(255) NOT NULL,
   `t_address` varchar(255) NOT NULL,
   `t_phone` varchar(10) NOT NULL,
-  `cls_id` int(255) NOT NULL,
   `sec_id` int(255) NOT NULL,
   `t_pass` varchar(255) NOT NULL,
   `date_updated` datetime NOT NULL,
@@ -166,13 +173,14 @@ CREATE TABLE `teacher` (
 -- Dumping data for table `teacher`
 --
 
-INSERT INTO `teacher` (`t_id`, `t_name`, `t_email`, `t_address`, `t_phone`, `cls_id`, `sec_id`, `t_pass`, `date_updated`, `is_deleted`) VALUES
-(1, 'Thilini Maheshika', 'me123@gmail.com', 'Thawalama', '0712237562', 1, 1, '123', '2023-04-01 22:09:51', 0),
-(2, 'kanishka ', 'kanishkadewsandaruwan@gmail.com', 'Neluwa', '0713664071', 1, 1, '22', '2023-04-01 23:41:19', 1),
-(3, 'kanishka', 'kanishkadewsandaruwan@gmail.com', 'Galle', '0713664071', 1, 1, '123', '2023-04-02 00:53:38', 1),
-(4, 'Tharushi', 'tharu1234@gmail.com', 'Thawalama', '0712997562', 1, 1, '12', '2023-04-02 00:58:32', 1),
-(5, 'Tharushi', 'tharu1234@gmail.com', 'Galle', '0712237562', 1, 2, '123', '2023-04-02 01:00:00', 1),
-(6, 'ab', 'ab@gmail.com', 'Galle', '0742356782', 1, 2, '12', '2023-04-02 01:12:35', 1);
+INSERT INTO `teacher` (`t_id`, `t_name`, `t_email`, `t_address`, `t_phone`, `sec_id`, `t_pass`, `date_updated`, `is_deleted`) VALUES
+(1, 'Thilini', 'me123@gmail.com', 'Thawalama', '0712237561', 2, '123', '2023-04-01 22:09:51', 0),
+(2, 'kanishka ', 'kanishkadewsandaruwan@gmail.com', 'Neluwa', '0713664071', 1, '22', '2023-04-01 23:41:19', 1),
+(3, 'kanishka', 'kanishkadewsandaruwan@gmail.com', 'Galle', '0713664071', 1, '123', '2023-04-02 00:53:38', 1),
+(4, 'Tharushi', 'tharu1234@gmail.com', 'Thawalama', '0712997562', 1, '12', '2023-04-02 00:58:32', 1),
+(5, 'Tharushi', 'tharu1234@gmail.com', 'Galle', '0712237562', 4, '123', '2023-04-02 01:00:00', 0),
+(6, 'ab', 'ab@gmail.com', 'Galle', '0742356782', 2, '12', '2023-04-02 01:12:35', 1),
+(8, 'Dew', 'dew@gmail.com', 'gakke', '0713664071', 2, '123', '2023-04-10 23:50:53', 0);
 
 --
 -- Indexes for dumped tables
@@ -228,19 +236,19 @@ ALTER TABLE `attendance`
 -- AUTO_INCREMENT for table `class`
 --
 ALTER TABLE `class`
-  MODIFY `cls_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `cls_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `section`
 --
 ALTER TABLE `section`
-  MODIFY `sec_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `sec_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `reg_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `reg_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `tbl_admin`
@@ -252,7 +260,7 @@ ALTER TABLE `tbl_admin`
 -- AUTO_INCREMENT for table `teacher`
 --
 ALTER TABLE `teacher`
-  MODIFY `t_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `t_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
